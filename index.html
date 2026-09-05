@@ -937,14 +937,15 @@ const PRODUCTS = [
   { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 850", desc: "Dimmable, colour-changing LED bulb. Works with voice assistants and schedules.",
     fullDesc: "Dimmable, colour-changing LED bulb with 16 million colours and adjustable warm-to-cool white. Works with Alexa, Google Home, and the companion app for schedules, scenes, and away-mode lighting. Standard E27/E26 fitting, no hub required.",
      icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
-  { name: "Aura Light Strip", cat: "SMART SWITCHES", price: "EGP 850", desc: "2m flexible RGB strip for shelves, desks, or behind the TV.", icon: "bulb", images: [] },
-  { name: "Pulse Motion Sensor", cat: "Security", price: "EGP 850", desc: "Battery-powered sensor that triggers lights or alerts when it detects movement.", icon: "camera", images: [] },
-  { name: "Watchpoint Indoor Camera", cat: "SMART LOCKS", price: "EGP 520", desc: "1080p camera with night vision and two-way audio, no subscription required.", icon: "camera", images: [] },
-  { name: "Doorwatch Video Doorbell", cat: "SMART SWITCHES", price: "EGP 8550", desc: "See and speak to visitors from your phone, wired or battery powered.", icon: "lock", images: [] },
-  { name: "Keyfree Smart Lock", cat: "SMART SWITCHES", price: "EGP 750", desc: "Fits most standard deadbolts. Unlock with a code, app, or key.", icon: "lock", images: [] },
-  { name: "Climetric Thermostat", cat: "SMART LOCKS", price: "EGP 650", desc: "Learns your schedule and adjusts temperature automatically to save energy.", icon: "thermostat", images: [] },
-  { name: "Snaplug Smart Plug", cat: "Security", price: "EGP 550", desc: "Turn any plugged-in device smart. Schedule, group, or control remotely.", icon: "plug", images: [] },
+  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 750", desc: "2m flexible RGB strip for shelves, desks, or behind the TV.", icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
+  { name: "Pulse Motion Sensor", cat: "Security", price: "$18", desc: "Battery-powered sensor that triggers lights or alerts when it detects movement.", icon: "camera", images: [] },
+  { name: "Watchpoint Indoor Camera", cat: "SMART LOCKS", price: "$39", desc: "1080p camera with night vision and two-way audio, no subscription required.", icon: "camera", images: [] },
+  { name: "Doorwatch Video Doorbell", cat: "Security", price: "$45", desc: "See and speak to visitors from your phone, wired or battery powered.", icon: "lock", images: [] },
+  { name: "Keyfree Smart Lock", cat: "Security", price: "$59", desc: "Fits most standard deadbolts. Unlock with a code, app, or key.", icon: "lock", images: [] },
+  { name: "Climetric Thermostat", cat: "Climate", price: "$49", desc: "Learns your schedule and adjusts temperature automatically to save energy.", icon: "thermostat", images: [] },
+  { name: "Snaplug Smart Plug", cat: "Power", price: "$12", desc: "Turn any plugged-in device smart. Schedule, group, or control remotely.", icon: "plug", images: [] },
 ];
+
 
 /* ============================================================
    Rendering logic — no need to edit below this line
@@ -1127,9 +1128,11 @@ document.addEventListener("keydown", (e)=>{
 });
 
 // ---------- Basket / cart ----------
+// Using sessionStorage: the basket stays while someone is browsing, but
+// automatically starts empty again next time they open the site (new tab/visit).
 let cart = [];
 try{
-  cart = JSON.parse(localStorage.getItem("basket_items") || "[]");
+  cart = JSON.parse(sessionStorage.getItem("basket_items") || "[]");
 }catch(e){ cart = []; }
 
 // per-card selected quantity, before adding to the basket
@@ -1146,7 +1149,7 @@ document.getElementById("productGrid").addEventListener("click", (e)=>{
 });
 
 function saveCart(){
-  try{ localStorage.setItem("basket_items", JSON.stringify(cart)); }catch(e){}
+  try{ sessionStorage.setItem("basket_items", JSON.stringify(cart)); }catch(e){}
 }
 
 function parsePrice(priceStr){
@@ -1288,6 +1291,18 @@ cartOverlay.addEventListener("click", (e)=>{
 });
 document.addEventListener("keydown", (e)=>{
   if(e.key === "Escape") cartOverlay.classList.remove("open");
+});
+
+// once someone taps through to WhatsApp to place the order, treat it as sent
+// and empty the basket for the next customer on this device
+document.getElementById("cartCheckoutWa").addEventListener("click", ()=>{
+  if(cart.length === 0) return;
+  setTimeout(()=>{
+    cart = [];
+    saveCart();
+    renderCart();
+    cartOverlay.classList.remove("open");
+  }, 400);
 });
 
 renderCart();

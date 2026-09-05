@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nestlink — Smart Home Devices</title>
+<style>
+  :root{
+    --bg: #14171C;
+    --panel: #1E232B;
+    --panel-hi: #262C35;
+    --line: #2E3540;
+    --text: #F2F0EA;
+    --text-muted: #9AA1AC;
+    --amber: #FFB454;
+    --amber-soft: rgba(255,180,84,0.14);
+    --teal: #5FD3C4;
+    --radius: 14px;
+    --maxw: 1120px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+    margin:0;
+  }
+
+  a { color:inherit; }
+
+  img, svg { display:block; }
+
+  button, .btn { font-family:inherit; cursor:pointer; }
+
+  :focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin:0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(20,23,28,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 0;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size: 1.15rem;
+    font-weight:600;
+  }
+  .brand-mark{
+    width:30px; height:30px;
+    border-radius:8px;
+    background: linear-gradient(135deg, var(--amber), #E8934A);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .brand-mark svg{ width:16px; height:16px; }
+  .brand-mark img{
+    width:100%; height:100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  nav.links{
+    display:flex;
+    gap:28px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+  nav.links a:hover{ color: var(--text); }
+
+  .nav-cta{
+    display:none;
+  }
+
+  .menu-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    border-radius:8px;
+    width:40px; height:40px;
+    align-items:center;
+    justify-content:center;
+    color:var(--text);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 72px 0 64px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items:center;
+  }
+  .eyebrow{
+    color: var(--teal);
+    font-size:0.85rem;
+    font-weight:500;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+    font-weight: 600;
+    line-height:1.1;
+    max-width: 15ch;
+  }
+  .hero p{
+    color: var(--text-muted);
+    font-size: 1.08rem;
+    max-width: 46ch;
+    margin-top: 18px;
+  }
+  .hero-actions{
+    margin-top: 30px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background: var(--amber);
+    color:#20140A;
+    border:none;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-weight:600;
+    font-size:0.98rem;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn-primary:hover{ background:#ffc172; transform: translateY(-1px); }
+
+  .btn-ghost{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background: transparent;
+    color: var(--text);
+    border:1px solid var(--line);
+    padding: 13px 20px;
+    border-radius: 999px;
+    font-size:0.98rem;
+  }
+  .btn-ghost:hover{ border-color:#454e5c; }
+
+  /* hero network diagram */
+  .hero-visual{
+    position:relative;
+    aspect-ratio: 1/0.95;
+  }
+  .hero-visual svg{ width:100%; height:100%; }
+
+  .stat-row{
+    display:flex;
+    gap:32px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .stat b{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.5rem;
+    display:block;
+  }
+  .stat span{
+    color:var(--text-muted);
+    font-size:0.85rem;
+  }
+
+  /* ---------- Section heading ---------- */
+  .section{ padding: 56px 0; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    margin-bottom: 34px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight:600;
+  }
+  .section-head p{
+    color:var(--text-muted);
+    max-width:42ch;
+    margin-top:8px;
+  }
+
+  /* ---------- Filters ---------- */
+  .filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .filter-btn{
+    background: var(--panel);
+    border:1px solid var(--line);
+    color: var(--text-muted);
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size:0.88rem;
+    transition: all .15s ease;
+  }
+  .filter-btn:hover{ color:var(--text); }
+  .filter-btn.active{
+    background: var(--amber-soft);
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  /* ---------- Product grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .card{
+    background: var(--panel);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    display:flex;
+    flex-direction:column;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover{
+    border-color:#3B4451;
+    transform: translateY(-3px);
+  }
+  .card-icon{
+    width:52px; height:52px;
+    border-radius:12px;
+    background: var(--panel-hi);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .card-photo{
+    width: calc(100% + 44px);
+    margin: -22px -22px 18px;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius) var(--radius) 0 0;
+    overflow:hidden;
+    background: var(--panel-hi);
+  }
+  .card-photo img{
+    width:100%; height:100%;
+    object-fit: cover;
+    display:block;
+  }
+  .card-icon svg{ width:26px; height:26px; stroke:var(--amber); }
+  .card-icon img{
+    width:100%; height:100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .card-cat{
+    font-size:0.75rem;
+    color: var(--teal);
+    margin-bottom:6px;
+  }
+  .card h3{
+    font-size:1.05rem;
+    font-weight:600;
+  }
+  .card p.desc{
+    color: var(--text-muted);
+    font-size:0.9rem;
+    margin-top:8px;
+    flex-grow:1;
+  }
+  .card-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+  }
+  .price{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .ask-btn{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background: transparent;
+    border:1px solid var(--line);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size:0.85rem;
+    font-weight:500;
+  }
+  .ask-btn:hover{ border-color: var(--teal); color: var(--teal); }
+  .ask-btn svg{ width:14px; height:14px; }
+
+  .card.hidden{ display:none; }
+
+  .details-btn{
+    margin-top: 12px;
+    background:none;
+    border:none;
+    color: var(--teal);
+    font-size: 0.85rem;
+    font-weight:500;
+    padding:0;
+    text-align:left;
+  }
+  .details-btn:hover{ text-decoration: underline; }
+
+  /* ---------- Product modal ---------- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background: rgba(10,12,15,0.7);
+    backdrop-filter: blur(4px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal-overlay.open{ display:flex; }
+
+  .modal{
+    background: var(--panel);
+    border:1px solid var(--line);
+    border-radius: 18px;
+    max-width: 760px;
+    width:100%;
+    max-height: 88vh;
+    overflow-y:auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    position:relative;
+  }
+  .modal-close{
+    position:absolute;
+    top:14px; right:14px;
+    width:34px; height:34px;
+    border-radius:50%;
+    background: rgba(20,23,28,0.7);
+    border:1px solid var(--line);
+    color:var(--text);
+    display:flex; align-items:center; justify-content:center;
+    z-index:2;
+  }
+  .modal-gallery{
+    background: var(--panel-hi);
+  }
+  .modal-gallery-main{
+    aspect-ratio: 1/1;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .modal-gallery-main img{ width:100%; height:100%; object-fit:cover; }
+  .modal-gallery-main svg{ width:70px; height:70px; stroke:var(--amber); }
+  .modal-thumbs{
+    display:flex;
+    gap:8px;
+    padding: 12px;
+    overflow-x:auto;
+  }
+  .modal-thumbs img{
+    width:52px; height:52px;
+    object-fit:cover;
+    border-radius:8px;
+    border:2px solid transparent;
+    opacity:0.6;
+  }
+  .modal-thumbs img.active{ border-color: var(--amber); opacity:1; }
+
+  .modal-body{
+    padding: 30px 26px;
+    display:flex;
+    flex-direction:column;
+  }
+  .modal-cat{ color: var(--teal); font-size:0.8rem; margin-bottom:8px; }
+  .modal-body h3{ font-size:1.3rem; font-weight:600; }
+  .modal-price{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.2rem;
+    font-weight:600;
+    margin-top:10px;
+  }
+  .modal-desc{
+    color: var(--text-muted);
+    font-size:0.92rem;
+    margin-top:14px;
+    line-height:1.6;
+    flex-grow:1;
+  }
+  .modal-body .btn-primary{
+    margin-top:22px;
+    justify-content:center;
+  }
+
+  @media (max-width: 640px){
+    .modal{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- How it works ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+    margin-top:30px;
+  }
+  .step{
+    background: var(--panel);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:24px;
+  }
+  .step-icon{
+    width:40px; height:40px;
+    border-radius:10px;
+    background: var(--amber-soft);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .step-icon svg{ width:20px; height:20px; stroke:var(--amber); }
+  .step h3{ font-size:1rem; font-weight:600; margin-bottom:8px; }
+  .step p{ color:var(--text-muted); font-size:0.9rem; }
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background: linear-gradient(120deg, #1E232B, #232A34);
+    border:1px solid var(--line);
+    border-radius: 20px;
+    padding: 44px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 24px;
+    flex-wrap:wrap;
+  }
+  .cta-band h2{ font-size:1.5rem; font-weight:600; max-width: 22ch; }
+  .cta-band p{ color:var(--text-muted); margin-top:8px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding: 40px 0;
+    margin-top: 20px;
+  }
+  .foot-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .foot-grid .brand{ font-size:1rem; }
+  footer .fine{
+    color: var(--text-muted);
+    font-size:0.85rem;
+  }
+
+  /* floating whatsapp button on mobile */
+  .fab{
+    position:fixed;
+    bottom:20px; right:20px;
+    width:56px; height:56px;
+    border-radius:50%;
+    background: var(--amber);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    z-index:60;
+  }
+  .fab svg{ width:26px; height:26px; stroke:#20140A; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+    .steps{ grid-template-columns: 1fr; }
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-visual{ order:-1; max-width: 340px; margin:0 auto; }
+  }
+
+  @media (max-width: 640px){
+    nav.links{
+      position:fixed;
+      top:66px; left:0; right:0;
+      background: var(--bg);
+      border-bottom:1px solid var(--line);
+      flex-direction:column;
+      padding: 18px 24px 24px;
+      gap:18px;
+      display:none;
+    }
+    nav.links.open{ display:flex; }
+    .menu-toggle{ display:flex; }
+    .grid{ grid-template-columns: 1fr; }
+    .cta-band{ flex-direction:column; align-items:flex-start; }
+    .fab{ display:flex; }
+    .stat-row{ gap:20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#20140A" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+      </span>
+      <span class="brand-name">SNIPER TECHNOLOGY</span>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#products">Products</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn-primary nav-cta" id="headerWa" href="#" target="_blank" rel="noopener">
+      Message us
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Devices for a calmer, more responsive home</div>
+      <h1>Smart home devices, without the storefront checkout</h1>
+      <p>Browse the lineup, pick what fits your space, and message us directly on WhatsApp to check stock, ask about setup, or place an order. No accounts, no carts, just a conversation.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" id="heroWa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Chat with us on WhatsApp
+        </a>
+        <a class="btn-ghost" href="#products">See all products</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b id="statDevices">8</b><span>devices in stock</span></div>
+        <div class="stat"><b id="statCategories">4</b><span>categories</span></div>
+        <div class="stat"><b>&lt;1hr</b><span>typical reply time</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 360 340" fill="none">
+        <circle cx="180" cy="170" r="26" fill="#262C35" stroke="#3B4451"/>
+        <path d="M168 170a12 12 0 1 0 24 0 12 12 0 1 0 -24 0" fill="#FFB454"/>
+        <g stroke="#3B4451" stroke-width="1.5">
+          <line x1="180" y1="170" x2="70" y2="70"/>
+          <line x1="180" y1="170" x2="290" y2="70"/>
+          <line x1="180" y1="170" x2="60" y2="230"/>
+          <line x1="180" y1="170" x2="300" y2="240"/>
+          <line x1="180" y1="170" x2="180" y2="290"/>
+        </g>
+        <!-- bulb node -->
+        <g transform="translate(70,70)">
+          <circle r="30" fill="#1E232B" stroke="#3B4451"/>
+          <path d="M-7 -10a7 7 0 1 1 14 0c0 4-2 5-3 7-1 2-1 3-1 4h-6c0-1 0-2-1-4-1-2-3-3-3-7z" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+          <line x1="-3" y1="4" x2="3" y2="4" stroke="#5FD3C4" stroke-width="1.6"/>
+        </g>
+        <!-- camera node -->
+        <g transform="translate(290,70)">
+          <circle r="30" fill="#1E232B" stroke="#3B4451"/>
+          <rect x="-11" y="-7" width="22" height="14" rx="3" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+          <circle cx="0" cy="0" r="4" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+        </g>
+        <!-- plug node -->
+        <g transform="translate(60,230)">
+          <circle r="30" fill="#1E232B" stroke="#3B4451"/>
+          <rect x="-9" y="-9" width="18" height="18" rx="4" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+          <line x1="-3" y1="-13" x2="-3" y2="-9" stroke="#5FD3C4" stroke-width="1.6"/>
+          <line x1="3" y1="-13" x2="3" y2="-9" stroke="#5FD3C4" stroke-width="1.6"/>
+        </g>
+        <!-- thermostat node -->
+        <g transform="translate(300,240)">
+          <circle r="30" fill="#1E232B" stroke="#3B4451"/>
+          <circle r="12" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+          <line x1="0" y1="-4" x2="0" y2="0" stroke="#5FD3C4" stroke-width="1.6"/>
+          <line x1="0" y1="0" x2="4" y2="3" stroke="#5FD3C4" stroke-width="1.6"/>
+        </g>
+        <!-- lock node -->
+        <g transform="translate(180,290)">
+          <circle r="30" fill="#1E232B" stroke="#3B4451"/>
+          <rect x="-8" y="-2" width="16" height="12" rx="2" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+          <path d="M-5 -2v-4a5 5 0 0 1 10 0v4" stroke="#5FD3C4" stroke-width="1.6" fill="none"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>The lineup</h2>
+        <p>Every device here connects to your home Wi-Fi and works with a single companion app. Tap "Ask on WhatsApp" for pricing, bundles, or installation questions.</p>
+      </div>
+      <div class="filters" id="filters"></div>
+    </div>
+
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>How ordering works</h2>
+        <p>No checkout, no account creation. Just three steps.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div>
+        <h3>1. Browse the lineup</h3>
+        <p>Look through devices by category and note down what fits your space.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <h3>2. Message us</h3>
+        <p>Tap "Ask on WhatsApp" on any product — your message opens pre-filled with the item name.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>3. Confirm details</h3>
+        <p>We'll confirm stock, price, and delivery or pickup directly in the chat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Have a question before you message us?</h2>
+        <p>We're happy to help you figure out what fits your home, even if you're not ready to order yet.</p>
+      </div>
+      <a class="btn-primary" id="ctaWa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Message us on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#20140A" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+      </span>
+      <span class="brand-name">SNIPER TECHNOLOGY</span>
+    </div>
+    <div class="fine">No online payment — every order is confirmed over WhatsApp.</div>
+  </div>
+</footer>
+
+<a class="fab" id="fabWa" href="#" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</a>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-gallery">
+      <div class="modal-gallery-main" id="modalGalleryMain"></div>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat" id="modalCat"></div>
+      <h3 id="modalName"></h3>
+      <div class="modal-price" id="modalPrice"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <a class="btn-primary" id="modalWa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Ask on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   EDIT THESE TWO THINGS TO SET UP YOUR OWN SITE
+   ============================================================ */
+
+// 1. Your WhatsApp number in international format, no + or spaces
+//    Example: "15551234567" for +1 555 123 4567
+const WHATSAPP_NUMBER = "201116944014";
+
+// 1b. Your business name (shown in the header and footer)
+const BUSINESS_NAME = "SNIPER TECHNOLOGY";
+
+// 1c. Your logo image — paste an image URL here to replace the icon logo.
+//     Leave it as "" to keep the default amber house icon.
+const LOGO_IMAGE = "https://i.postimg.cc/y6tf7w8L/LOGO.png";
+
+// 1d. Background image for the whole page (shows behind the hero too).
+//     Leave it as "" to keep the plain dark background.
+const BACKGROUND_IMAGE = "https://i.postimg.cc/pdcSzyPM/images.jpg";
+
+// 2. Your product list
+const PRODUCTS = [
+  // "images" is a list — add as many photo URLs as you want, e.g. images: ["url1.jpg", "url2.jpg", "url3.jpg"]
+  // "fullDesc" is optional — a longer description shown when someone clicks "View details". If left out, "desc" is reused.
+  { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 850", desc: "Dimmable, colour-changing LED bulb. Works with voice assistants and schedules.",
+    fullDesc: "Dimmable, colour-changing LED bulb with 16 million colours and adjustable warm-to-cool white. Works with Alexa, Google Home, and the companion app for schedules, scenes, and away-mode lighting. Standard E27/E26 fitting, no hub required.",
+     icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
+  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 750", desc: "2m flexible RGB strip for shelves, desks, or behind the TV.", icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
+  { name: "MINI SMART SWITCH 2 GANG", cat: "SMART SWITCHES", price: "EGP 700", desc: "Battery-powered sensor that triggers lights or alerts when it detects movement.", icon: "camera", images: [] },
+  { name: "MINI SMART SWITCH 3 GANG", cat: "SMART SWITCHES", price: "EGP 600", desc: "1080p camera with night vision and two-way audio, no subscription required.", icon: "camera", images: [] },
+  { name: "SMART LOCK ", cat: "SMART LOCKS", price: "EGP 7500", desc: "See and speak to visitors from your phone, wired or battery powered.", icon: "lock", images: [] },
+  { name: "IR REMOTE", cat: "OTHERS", price: "EGP 650", desc: "Fits most standard deadbolts. Unlock with a code, app, or key.", icon: "lock", images: [] },
+  { name: "SMART VALVE ", cat: "SAFETY", price: "EGP 900", desc: "Learns your schedule and adjusts temperature automatically to save energy.", icon: "thermostat", images: [] },
+  { name: "GAS LEAKEAGE SENSOR", cat: "SAFETY", price: "EGP 750", desc: "Turn any plugged-in device smart. Schedule, group, or control remotely.", icon: "plug", images: [] },
+  
+];
+
+/* ============================================================
+   Rendering logic — no need to edit below this line
+   ============================================================ */
+
+const ICONS = {
+  bulb: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M17 10l4-2v8l-4-2"/></svg>',
+  plug: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 7v3M15 7v3M7 10h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5v-3z"/><path d="M12 18v3"/></svg>',
+  thermostat: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+};
+
+function waLink(productName){
+  const base = productName ? `Hi! I'm interested in the ${productName}. Is it in stock?` : "Hi! I have a question about your smart home products.";
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(base)}`;
+}
+
+// wire up the static WhatsApp buttons
+["headerWa","heroWa","ctaWa","fabWa"].forEach(id=>{
+  document.getElementById(id).href = waLink();
+});
+
+// apply business name and logo everywhere they appear
+document.querySelectorAll(".brand-name").forEach(el=>{
+  el.textContent = BUSINESS_NAME;
+});
+if(LOGO_IMAGE){
+  document.querySelectorAll(".brand-mark").forEach(el=>{
+    el.innerHTML = `<img src="${LOGO_IMAGE}" alt="${BUSINESS_NAME} logo">`;
+    el.style.background = "none";
+  });
+}
+if(BACKGROUND_IMAGE){
+  document.body.style.backgroundImage =
+    `linear-gradient(rgba(20,23,28,0.88), rgba(20,23,28,0.94)), url("${BACKGROUND_IMAGE}")`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+  document.body.style.backgroundRepeat = "no-repeat";
+}
+document.title = document.title.replace("Nestlink", BUSINESS_NAME);
+
+// build product grid
+const grid = document.getElementById("productGrid");
+PRODUCTS.forEach((p, index)=>{
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.cat = p.cat;
+  const firstImage = p.images && p.images.length ? p.images[0] : null;
+  const media = firstImage
+    ? `<div class="card-photo"><img src="${firstImage}" alt="${p.name}"></div>`
+    : `<div class="card-icon">${ICONS[p.icon] || ICONS.plug}</div>`;
+  card.innerHTML = `
+    ${media}
+    <div class="card-cat">${p.cat}</div>
+    <h3>${p.name}</h3>
+    <p class="desc">${p.desc}</p>
+    <button class="details-btn" data-index="${index}">View details</button>
+    <div class="card-foot">
+      <span class="price">${p.price}</span>
+      <a class="ask-btn" href="${waLink(p.name)}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Ask
+      </a>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// build filter buttons from whatever categories exist in PRODUCTS
+const filters = document.getElementById("filters");
+const categories = ["all", ...new Set(PRODUCTS.map(p => p.cat))];
+categories.forEach((cat, i)=>{
+  const btn = document.createElement("button");
+  btn.className = "filter-btn" + (i === 0 ? " active" : "");
+  btn.dataset.cat = cat;
+  btn.textContent = cat === "all" ? "All" : cat;
+  filters.appendChild(btn);
+});
+
+// keep the hero stats in sync with the actual product list
+document.getElementById("statDevices").textContent = PRODUCTS.length;
+document.getElementById("statCategories").textContent = categories.length - 1;
+
+// filtering
+document.getElementById("filters").addEventListener("click", (e)=>{
+  const btn = e.target.closest(".filter-btn");
+  if(!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const cat = btn.dataset.cat;
+  document.querySelectorAll(".card").forEach(card=>{
+    card.classList.toggle("hidden", cat !== "all" && card.dataset.cat !== cat);
+  });
+});
+
+// mobile menu
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+menuToggle.addEventListener("click", ()=>{
+  navLinks.classList.toggle("open");
+});
+navLinks.querySelectorAll("a").forEach(a=>{
+  a.addEventListener("click", ()=> navLinks.classList.remove("open"));
+});
+
+// ---------- Product detail modal ----------
+const modalOverlay = document.getElementById("modalOverlay");
+const modalGalleryMain = document.getElementById("modalGalleryMain");
+const modalThumbs = document.getElementById("modalThumbs");
+const modalCat = document.getElementById("modalCat");
+const modalName = document.getElementById("modalName");
+const modalPrice = document.getElementById("modalPrice");
+const modalDesc = document.getElementById("modalDesc");
+const modalWa = document.getElementById("modalWa");
+
+function setMainImage(url, iconSvg){
+  modalGalleryMain.innerHTML = url ? `<img src="${url}" alt="">` : iconSvg;
+}
+
+function openModal(product){
+  const images = product.images && product.images.length ? product.images : [];
+  const iconSvg = ICONS[product.icon] || ICONS.plug;
+
+  modalCat.textContent = product.cat;
+  modalName.textContent = product.name;
+  modalPrice.textContent = product.price;
+  modalDesc.textContent = product.fullDesc || product.desc;
+  modalWa.href = waLink(product.name);
+
+  setMainImage(images[0], iconSvg);
+
+  modalThumbs.innerHTML = "";
+  if(images.length > 1){
+    images.forEach((url, i)=>{
+      const thumb = document.createElement("img");
+      thumb.src = url;
+      if(i === 0) thumb.classList.add("active");
+      thumb.addEventListener("click", ()=>{
+        setMainImage(url, iconSvg);
+        modalThumbs.querySelectorAll("img").forEach(t=>t.classList.remove("active"));
+        thumb.classList.add("active");
+      });
+      modalThumbs.appendChild(thumb);
+    });
+  }
+
+  modalOverlay.classList.add("open");
+}
+
+function closeModal(){
+  modalOverlay.classList.remove("open");
+}
+
+document.getElementById("productGrid").addEventListener("click", (e)=>{
+  const btn = e.target.closest(".details-btn");
+  if(!btn) return;
+  openModal(PRODUCTS[Number(btn.dataset.index)]);
+});
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", (e)=>{
+  if(e.target === modalOverlay) closeModal();
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape") closeModal();
+});
+</script>
+
+</body>
+</html>

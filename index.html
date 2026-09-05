@@ -101,6 +101,34 @@
     display:none;
   }
 
+  .cart-btn{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:40px; height:40px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    margin-left: 8px;
+  }
+  .cart-btn:hover{ border-color:#454e5c; }
+  .cart-btn svg{ width:18px; height:18px; }
+  .cart-badge{
+    position:absolute;
+    top:-6px; right:-6px;
+    background: var(--amber);
+    color:#20140A;
+    font-size:0.68rem;
+    font-weight:700;
+    min-width:17px; height:17px;
+    border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    padding: 0 4px;
+  }
+  .cart-badge.hidden{ display:none; }
+
   .menu-toggle{
     display:none;
     background:none;
@@ -329,6 +357,79 @@
   .ask-btn:hover{ border-color: var(--teal); color: var(--teal); }
   .ask-btn svg{ width:14px; height:14px; }
 
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .icon-action-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:36px; height:36px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    flex-shrink:0;
+  }
+  .icon-action-btn svg{ width:15px; height:15px; }
+  .icon-action-btn:hover{ border-color: var(--teal); color: var(--teal); }
+  .icon-action-btn.added{
+    border-color: var(--amber);
+    color: var(--amber);
+    background: var(--amber-soft);
+  }
+
+  /* ---------- Cart modal ---------- */
+  .cart-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding: 6px 0 20px;
+  }
+  .cart-empty{
+    color: var(--text-muted);
+    font-size:0.9rem;
+    padding: 20px 0;
+    text-align:center;
+  }
+  .cart-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+  }
+  .cart-item-info{ flex-grow:1; min-width:0; }
+  .cart-item-info .name{ font-weight:600; font-size:0.92rem; }
+  .cart-item-info .price{ color: var(--text-muted); font-size:0.85rem; font-weight:400; }
+  .cart-item-qty{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .qty-btn{
+    width:26px; height:26px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background: var(--panel-hi);
+    color: var(--text);
+    font-size:0.95rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .qty-btn:hover{ border-color: var(--teal); }
+  .cart-item-qty span{ min-width:16px; text-align:center; font-size:0.9rem; }
+  .cart-remove{
+    background:none; border:none;
+    color: var(--text-muted);
+    flex-shrink:0;
+  }
+  .cart-remove:hover{ color:#e07a6b; }
+  .cart-remove svg{ width:16px; height:16px; }
+
   .card.hidden{ display:none; }
 
   .details-btn{
@@ -553,6 +654,10 @@
     <a class="btn-primary nav-cta" id="headerWa" href="#" target="_blank" rel="noopener">
       Message us
     </a>
+    <button class="cart-btn" id="cartToggle" aria-label="View basket">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+      <span class="cart-badge hidden" id="cartBadge">0</span>
+    </button>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -721,6 +826,22 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="cartOverlay">
+  <div class="modal" style="grid-template-columns: 1fr; max-width: 480px;">
+    <button class="modal-close" id="cartClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-body">
+      <h3>Your basket</h3>
+      <div class="cart-list" id="cartList"></div>
+      <a class="btn-primary" id="cartCheckoutWa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Order this basket on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    EDIT THESE TWO THINGS TO SET UP YOUR OWN SITE
@@ -741,6 +862,10 @@ const LOGO_IMAGE = "https://i.postimg.cc/y6tf7w8L/LOGO.png";
 //     Leave it as "" to keep the plain dark background.
 const BACKGROUND_IMAGE = "https://i.postimg.cc/pdcSzyPM/images.jpg";
 
+// 1e. How dark the overlay on top of the background image is (0 = no overlay,
+//     fully transparent image; 1 = fully black, image invisible). 0.4–0.6 is a good range.
+const BACKGROUND_OVERLAY_OPACITY = 0.3;
+
 // 2. Your product list
 const PRODUCTS = [
   // "images" is a list — add as many photo URLs as you want, e.g. images: ["url1.jpg", "url2.jpg", "url3.jpg"]
@@ -749,13 +874,12 @@ const PRODUCTS = [
     fullDesc: "Dimmable, colour-changing LED bulb with 16 million colours and adjustable warm-to-cool white. Works with Alexa, Google Home, and the companion app for schedules, scenes, and away-mode lighting. Standard E27/E26 fitting, no hub required.",
      icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
   { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 750", desc: "2m flexible RGB strip for shelves, desks, or behind the TV.", icon: "bulb", images: ["https://i.postimg.cc/2SNnKG99/1.png", "https://i.postimg.cc/ZYDGpBsc/2.png", "https://i.postimg.cc/HkbRqSYr/3.png"] },
-  { name: "MINI SMART SWITCH 2 GANG", cat: "SMART SWITCHES", price: "EGP 700", desc: "Battery-powered sensor that triggers lights or alerts when it detects movement.", icon: "camera", images: [] },
-  { name: "MINI SMART SWITCH 3 GANG", cat: "SMART SWITCHES", price: "EGP 600", desc: "1080p camera with night vision and two-way audio, no subscription required.", icon: "camera", images: [] },
-  { name: "SMART LOCK ", cat: "SMART LOCKS", price: "EGP 7500", desc: "See and speak to visitors from your phone, wired or battery powered.", icon: "lock", images: [] },
-  { name: "IR REMOTE", cat: "OTHERS", price: "EGP 650", desc: "Fits most standard deadbolts. Unlock with a code, app, or key.", icon: "lock", images: [] },
-  { name: "SMART VALVE ", cat: "SAFETY", price: "EGP 900", desc: "Learns your schedule and adjusts temperature automatically to save energy.", icon: "thermostat", images: [] },
-  { name: "GAS LEAKEAGE SENSOR", cat: "SAFETY", price: "EGP 750", desc: "Turn any plugged-in device smart. Schedule, group, or control remotely.", icon: "plug", images: [] },
-  
+  { name: "Pulse Motion Sensor", cat: "Security", price: "$18", desc: "Battery-powered sensor that triggers lights or alerts when it detects movement.", icon: "camera", images: [] },
+  { name: "Watchpoint Indoor Camera", cat: "SMART LOCKS", price: "$39", desc: "1080p camera with night vision and two-way audio, no subscription required.", icon: "camera", images: [] },
+  { name: "Doorwatch Video Doorbell", cat: "Security", price: "$45", desc: "See and speak to visitors from your phone, wired or battery powered.", icon: "lock", images: [] },
+  { name: "Keyfree Smart Lock", cat: "Security", price: "$59", desc: "Fits most standard deadbolts. Unlock with a code, app, or key.", icon: "lock", images: [] },
+  { name: "Climetric Thermostat", cat: "Climate", price: "$49", desc: "Learns your schedule and adjusts temperature automatically to save energy.", icon: "thermostat", images: [] },
+  { name: "Snaplug Smart Plug", cat: "Power", price: "$12", desc: "Turn any plugged-in device smart. Schedule, group, or control remotely.", icon: "plug", images: [] },
 ];
 
 /* ============================================================
@@ -792,7 +916,7 @@ if(LOGO_IMAGE){
 }
 if(BACKGROUND_IMAGE){
   document.body.style.backgroundImage =
-    `linear-gradient(rgba(20,23,28,0.88), rgba(20,23,28,0.94)), url("${BACKGROUND_IMAGE}")`;
+    `linear-gradient(rgba(20,23,28,${BACKGROUND_OVERLAY_OPACITY}), rgba(20,23,28,${BACKGROUND_OVERLAY_OPACITY})), url("${BACKGROUND_IMAGE}")`;
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundPosition = "center";
   document.body.style.backgroundAttachment = "fixed";
@@ -818,10 +942,14 @@ PRODUCTS.forEach((p, index)=>{
     <button class="details-btn" data-index="${index}">View details</button>
     <div class="card-foot">
       <span class="price">${p.price}</span>
-      <a class="ask-btn" href="${waLink(p.name)}" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Ask
-      </a>
+      <div class="card-actions">
+        <a class="icon-action-btn" href="${waLink(p.name)}" target="_blank" rel="noopener" aria-label="Ask on WhatsApp" title="Ask on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </a>
+        <button class="icon-action-btn add-to-cart-btn" data-index="${index}" aria-label="Add to basket" title="Add to basket">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+        </button>
+      </div>
     </div>
   `;
   grid.appendChild(card);
@@ -925,6 +1053,118 @@ modalOverlay.addEventListener("click", (e)=>{
 document.addEventListener("keydown", (e)=>{
   if(e.key === "Escape") closeModal();
 });
+
+// ---------- Basket / cart ----------
+let cart = [];
+try{
+  cart = JSON.parse(localStorage.getItem("basket_items") || "[]");
+}catch(e){ cart = []; }
+
+function saveCart(){
+  try{ localStorage.setItem("basket_items", JSON.stringify(cart)); }catch(e){}
+}
+
+function addToCart(productIndex){
+  const product = PRODUCTS[productIndex];
+  const existing = cart.find(item => item.name === product.name);
+  if(existing){
+    existing.qty += 1;
+  }else{
+    cart.push({ name: product.name, price: product.price, qty: 1 });
+  }
+  saveCart();
+  renderCart();
+}
+
+function changeQty(name, delta){
+  const item = cart.find(i => i.name === name);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){
+    cart = cart.filter(i => i.name !== name);
+  }
+  saveCart();
+  renderCart();
+}
+
+function removeFromCart(name){
+  cart = cart.filter(i => i.name !== name);
+  saveCart();
+  renderCart();
+}
+
+function cartWaLink(){
+  if(cart.length === 0) return waLink();
+  const lines = cart.map((item, i) => `${i + 1}. ${item.name} (x${item.qty}) — ${item.price}`);
+  const message = `Hi! I'd like to order the following:\n${lines.join("\n")}\n\nPlease confirm availability and total price.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function renderCart(){
+  const totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
+  const cartBadge = document.getElementById("cartBadge");
+  cartBadge.textContent = totalCount;
+  cartBadge.classList.toggle("hidden", totalCount === 0);
+
+  const cartList = document.getElementById("cartList");
+  if(cart.length === 0){
+    cartList.innerHTML = `<div class="cart-empty">Your basket is empty. Tap the basket icon on any product to add it here.</div>`;
+  }else{
+    cartList.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <div class="name">${item.name}</div>
+          <div class="price">${item.price}</div>
+        </div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" data-action="dec" data-name="${item.name}">−</button>
+          <span>${item.qty}</span>
+          <button class="qty-btn" data-action="inc" data-name="${item.name}">+</button>
+        </div>
+        <button class="cart-remove" data-action="remove" data-name="${item.name}" aria-label="Remove">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("cartCheckoutWa").href = cartWaLink();
+}
+
+// add-to-cart clicks from product cards
+document.getElementById("productGrid").addEventListener("click", (e)=>{
+  const btn = e.target.closest(".add-to-cart-btn");
+  if(!btn) return;
+  addToCart(Number(btn.dataset.index));
+  btn.classList.add("added");
+  setTimeout(()=> btn.classList.remove("added"), 900);
+});
+
+// cart list interactions (qty / remove)
+document.getElementById("cartList").addEventListener("click", (e)=>{
+  const btn = e.target.closest("button[data-action]");
+  if(!btn) return;
+  const name = btn.dataset.name;
+  if(btn.dataset.action === "inc") changeQty(name, 1);
+  if(btn.dataset.action === "dec") changeQty(name, -1);
+  if(btn.dataset.action === "remove") removeFromCart(name);
+});
+
+// open / close cart modal
+const cartOverlay = document.getElementById("cartOverlay");
+document.getElementById("cartToggle").addEventListener("click", ()=>{
+  renderCart();
+  cartOverlay.classList.add("open");
+});
+document.getElementById("cartClose").addEventListener("click", ()=> cartOverlay.classList.remove("open"));
+cartOverlay.addEventListener("click", (e)=>{
+  if(e.target === cartOverlay) cartOverlay.classList.remove("open");
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape") cartOverlay.classList.remove("open");
+});
+
+renderCart();
 </script>
 
 </body>

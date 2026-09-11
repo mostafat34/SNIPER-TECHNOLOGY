@@ -18,6 +18,15 @@
     --radius: 14px;
     --maxw: 1120px;
   }
+  #bgLayer{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -714,6 +723,7 @@
 </head>
 <body>
 
+<div id="bgLayer"></div>
 <header>
   <div class="wrap nav">
     <div class="brand">
@@ -1012,12 +1022,8 @@ if(LOGO_IMAGE){
   });
 }
 if(BACKGROUND_IMAGE){
-  document.body.style.backgroundImage =
+  document.getElementById("bgLayer").style.backgroundImage =
     `linear-gradient(rgba(20,23,28,${BACKGROUND_OVERLAY_OPACITY}), rgba(20,23,28,${BACKGROUND_OVERLAY_OPACITY})), url("${BACKGROUND_IMAGE}")`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundAttachment = "fixed";
-  document.body.style.backgroundRepeat = "no-repeat";
 }
 document.title = document.title.replace("Nestlink", BUSINESS_NAME);
 

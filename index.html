@@ -1245,9 +1245,9 @@ function formatCartTotal(){
     .join("  +  ");
 }
 
-function addToCart(productIndex){
+function addToCart(productIndex, qtyOverride){
   const product = PRODUCTS[productIndex];
-  const qty = cardQty[productIndex] || 1;
+  const qty = qtyOverride !== undefined ? qtyOverride : (cardQty[productIndex] || 1);
   const existing = cart.find(item => item.name === product.name);
   if(existing){
     existing.qty += qty;

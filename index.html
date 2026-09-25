@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nestlink — Smart Home Devices</title>
 <style>
+  .sold-out-badge{
+  position:absolute;
+  top:12px; left:12px;
+  background: rgba(20,23,28,0.9);
+  border:1px solid #e07a6b;
+  color:#e07a6b;
+  font-size:0.72rem;
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:999px;
+  z-index:2;
+}
+.card.is-sold-out{ opacity:0.6; }
+.card.is-sold-out .card-photo,
+.card.is-sold-out .card-icon{ position:relative; }
+.sold-out-text{
+  color:#e07a6b;
+  font-size:0.85rem;
+  font-weight:600;
+  margin-top:14px;
+}
   :root{
     --bg: #14171C;
     --panel: #1E232B;
@@ -972,21 +993,21 @@ const BACKGROUND_OVERLAY_OPACITY = 0.45;
 const PRODUCTS = [
   // "images" is a list — add as many photo URLs as you want, e.g. images: ["url1.jpg", "url2.jpg", "url3.jpg"]
   // "fullDesc" is optional — a longer description shown when someone clicks "View details". If left out, "desc" is reused.
-  { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 750", desc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
+  { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 750", soldOut: false, desc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
     fullDesc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
      icon: "bulb", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-06.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-01.png"] },
-  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 650", desc: "he Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
+  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 650",soldOut: false, desc: "he Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
     fullDesc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
      icon: "bulb", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-06.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-01.png"] },
-  { name: "IR Remote", cat: "Others", price: "EGP 750", desc: "The Smart IR Remote allows you to control your IR-enabled devices directly from your smartphone. It supports common devices such as TVs, air conditioners, and remote-controlled fans. Compatible with Tuya and Smart Life applications, it provides convenient remote control from anywhere through a single smart platform."
+  { name: "IR Remote", cat: "Others", price: "EGP 750", soldOut: false, desc: "The Smart IR Remote allows you to control your IR-enabled devices directly from your smartphone. It supports common devices such as TVs, air conditioners, and remote-controlled fans. Compatible with Tuya and Smart Life applications, it provides convenient remote control from anywhere through a single smart platform."
 , icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-03.png"] },
-  { name: "Smart Lock", cat: "SMART LOCKS", price: "EGP 7500", desc: "The Smart Lock provides secure and convenient access with multiple unlocking options, including fingerprint, palm recognition, password, card, key, mobile application, and temporary passwords. The built-in camera allows you to view and communicate with visitors remotely through two-way audio, providing enhanced security and control wherever you are.", icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock.jpeg","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-07.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-02.png"] },
-  { name: "smart Shutter switch", cat: "SMART SWITCHES", price: "EGP 1000", desc: "The Smart Shutter Switch provides convenient smart control of motorized shutters and curtains. It allows users to open and close them remotely through the Tuya and Smart Life applications, set automatic schedules, and control them manually or through a smartphone from anywhere.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.25%20PM.jpeg"] },
-  { name: "Smart Valve", cat: "safety", price: "EGP 900", desc: "The Smart Valve provides smart control of gas and water supply lines. It allows users to remotely open or close the valve through the Tuya and Smart Life applications. It can also be connected to a compatible gas leakage sensor for automatic gas shut-off when a leak is detected, according to the configured settings.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-04.png"] },
-  { name: "GAS Leakage sensor", cat: "safety", price: "EGP 750", desc: "The Smart Gas Leakage Sensor provides continuous monitoring of gas concentration with a built-in display and smart application access. When a gas leak is detected, it provides a loud audible alarm and sends an immediate notification to your smartphone, even when you are away from home. It can also be integrated with a compatible Smart Valve for automatic gas shut-off.", icon: "thermostat", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-011.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-014.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-09.png"] },
-  { name: "Smart Elec. water heater", cat: "SMART SWITCHES", price: "EGP 1100", desc: "The Smart Water Heater Switch provides convenient remote control of your electric water heater. Using the Tuya and Smart Life applications, users can turn the heater on or off remotely, monitor its operating status, and set schedules for automatic operation.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.28%20PM.jpeg"] },
-  { name: "Mini Smart Switch 3 gang", cat: "SMART SWITCHES", price: "EGP 700", desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
-  { name: "Mini smart switch 2 gang", cat: "SMART SWITCHES", price: "EGP 550", desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
+  { name: "Smart Lock", cat: "SMART LOCKS", price: "EGP 7500", soldOut: false, desc: "The Smart Lock provides secure and convenient access with multiple unlocking options, including fingerprint, palm recognition, password, card, key, mobile application, and temporary passwords. The built-in camera allows you to view and communicate with visitors remotely through two-way audio, providing enhanced security and control wherever you are.", icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock.jpeg","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-07.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-02.png"] },
+  { name: "smart Shutter switch", cat: "SMART SWITCHES", price: "EGP 1000",soldOut: false, desc: "The Smart Shutter Switch provides convenient smart control of motorized shutters and curtains. It allows users to open and close them remotely through the Tuya and Smart Life applications, set automatic schedules, and control them manually or through a smartphone from anywhere.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.25%20PM.jpeg"] },
+  { name: "Smart Valve", cat: "safety", price: "EGP 900",soldOut: true, desc: "The Smart Valve provides smart control of gas and water supply lines. It allows users to remotely open or close the valve through the Tuya and Smart Life applications. It can also be connected to a compatible gas leakage sensor for automatic gas shut-off when a leak is detected, according to the configured settings.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-04.png"] },
+  { name: "GAS Leakage sensor", cat: "safety", price: "EGP 750",soldOut: true, desc: "The Smart Gas Leakage Sensor provides continuous monitoring of gas concentration with a built-in display and smart application access. When a gas leak is detected, it provides a loud audible alarm and sends an immediate notification to your smartphone, even when you are away from home. It can also be integrated with a compatible Smart Valve for automatic gas shut-off.", icon: "thermostat", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-011.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-014.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-09.png"] },
+  { name: "Smart Elec. water heater", cat: "SMART SWITCHES", price: "EGP 1100",soldOut: false, desc: "The Smart Water Heater Switch provides convenient remote control of your electric water heater. Using the Tuya and Smart Life applications, users can turn the heater on or off remotely, monitor its operating status, and set schedules for automatic operation.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.28%20PM.jpeg"] },
+  { name: "Mini Smart Switch 3 gang", cat: "SMART SWITCHES", price: "EGP 700", soldOut: false, desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
+  { name: "Mini smart switch 2 gang", cat: "SMART SWITCHES", price: "EGP 550", soldOut: false, desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
 ];
 
 /* ============================================================
@@ -1031,19 +1052,20 @@ document.title = document.title.replace("Nestlink", BUSINESS_NAME);
 const grid = document.getElementById("productGrid");
 PRODUCTS.forEach((p, index)=>{
   const card = document.createElement("div");
-  card.className = "card";
-  card.dataset.cat = p.cat;
+  card.className = "card" + (p.soldOut ? " is-sold-out" : "");
+card.dataset.cat = p.cat;
   const firstImage = p.images && p.images.length ? p.images[0] : null;
-  const media = firstImage
-    ? `<div class="card-photo"><img src="${firstImage}" alt="${p.name}"></div>`
-    : `<div class="card-icon">${ICONS[p.icon] || ICONS.plug}</div>`;
+ const badge = p.soldOut ? `<span class="sold-out-badge">Sold out</span>` : "";
+const media = firstImage
+  ? `<div class="card-photo">${badge}<img src="${firstImage}" alt="${p.name}"></div>`
+  : `<div class="card-icon">${badge}${ICONS[p.icon] || ICONS.plug}</div>`;
   card.innerHTML = `
     ${media}
     <div class="card-cat">${p.cat}</div>
     <h3>${p.name}</h3>
     <p class="desc">${p.desc}</p>
-    <button class="details-btn" data-index="${index}">View details</button>
-    <div class="qty-row">
+   <button class="details-btn" data-index="${index}">View details</button>
+${p.soldOut ? '<div class="sold-out-text">Currently sold out</div>' : `<div class="qty-row">`}
       <div class="qty-stepper">
         <button class="qty-btn" data-action="dec" data-index="${index}">−</button>
         <span class="qty-display" id="qtyDisplay-${index}">1</span>
@@ -1052,8 +1074,8 @@ PRODUCTS.forEach((p, index)=>{
       <button class="add-to-cart-pill add-to-cart-btn" data-index="${index}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
         Add
-      </button>
-    </div>
+           </button>
+    ${p.soldOut ? '' : '</div>'}
     <div class="card-foot">
       <span class="price">${p.price}</span>
       <div class="card-actions">

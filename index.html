@@ -131,6 +131,25 @@
     display:none;
   }
 
+  .lang-toggle{
+    background: transparent;
+    border:1px solid var(--line);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size:0.85rem;
+    font-weight:500;
+    margin-left: 8px;
+  }
+  .lang-toggle:hover{ border-color: var(--teal); color: var(--teal); }
+
+  html[dir="rtl"] body{ direction: rtl; text-align: right; }
+  html[dir="rtl"] .lang-toggle{ margin-left:0; margin-right:8px; }
+  html[dir="rtl"] .cart-btn{ margin-left:0; }
+  html[dir="rtl"] .cart-badge{ right:auto; left:-6px; }
+  html[dir="rtl"] .sold-out-badge{ left:auto; right:12px; }
+  html[dir="rtl"] .details-btn{ text-align:right; }
+
   .cart-btn{
     position:relative;
     display:flex;
@@ -754,13 +773,14 @@
       <span class="brand-name">SNIPER TECHNOLOGY</span>
     </div>
     <nav class="links" id="navLinks">
-      <a href="#products">Products</a>
-      <a href="#how">How it works</a>
-      <a href="#contact">Contact</a>
+      <a href="#products" data-i18n="navProducts">Products</a>
+      <a href="#how" data-i18n="navHow">How it works</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
     </nav>
     <a class="btn-primary nav-cta" id="headerWa" href="#" target="_blank" rel="noopener">
-      Message us
+      <span data-i18n="navMessageUs">Message us</span>
     </a>
+    <button class="lang-toggle" id="langToggle" data-i18n="toggleLabel">العربية</button>
     <button class="cart-btn" id="cartToggle" aria-label="View basket">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
       <span class="cart-badge hidden" id="cartBadge">0</span>
@@ -774,20 +794,20 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Devices for a calmer, more responsive home</div>
-      <h1>Smart home devices,Customize you oun home</h1>
-      <p>Browse the lineup, pick what fits your space, and message us directly on WhatsApp to check stock, ask about setup, or place an order. No accounts, no carts, just a conversation.</p>
+      <div class="eyebrow" data-i18n="heroEyebrow">Devices for a calmer, more responsive home</div>
+      <h1 data-i18n="heroTitle">Smart home devices,Customize you oun home</h1>
+      <p data-i18n="heroDesc">Browse the lineup, pick what fits your space, and message us directly on WhatsApp to check stock, ask about setup, or place an order. No accounts, no carts, just a conversation.</p>
       <div class="hero-actions">
         <a class="btn-primary" id="heroWa" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Chat with us on WhatsApp
+          <span data-i18n="heroChatBtn">Chat with us on WhatsApp</span>
         </a>
-        <a class="btn-ghost" href="#products">See all products</a>
+        <a class="btn-ghost" href="#products" data-i18n="heroSeeAll">See all products</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b id="statDevices">8</b><span>devices in stock</span></div>
-        <div class="stat"><b id="statCategories">4</b><span>categories</span></div>
-        <div class="stat"><b>&lt;1hr</b><span>typical reply time</span></div>
+        <div class="stat"><b id="statDevices">8</b><span data-i18n="statDevices">devices in stock</span></div>
+        <div class="stat"><b id="statCategories">4</b><span data-i18n="statCategories">categories</span></div>
+        <div class="stat"><b>&lt;1hr</b><span data-i18n="statReply">typical reply time</span></div>
       </div>
     </div>
     <div class="hero-visual">
@@ -842,8 +862,8 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2>The lineup</h2>
-        <p>Every device here connects to your home Wi-Fi and works with a single companion app. Tap "Ask on WhatsApp" for pricing, bundles, or installation questions.</p>
+        <h2 data-i18n="productsTitle">The lineup</h2>
+        <p data-i18n="productsDesc">Every device here connects to your home Wi-Fi and works with a single companion app. Tap "Ask on WhatsApp" for pricing, bundles, or installation questions.</p>
       </div>
       <div class="filters" id="filters"></div>
     </div>
@@ -856,25 +876,25 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2>How ordering works</h2>
-        <p>No checkout, no account creation. Just three steps.</p>
+        <h2 data-i18n="howTitle">How ordering works</h2>
+        <p data-i18n="howDesc">No checkout, no account creation. Just three steps.</p>
       </div>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div>
-        <h3>1. Browse the lineup</h3>
-        <p>Look through devices by category and note down what fits your space.</p>
+        <h3 data-i18n="step1Title">1. Browse the lineup</h3>
+        <p data-i18n="step1Desc">Look through devices by category and note down what fits your space.</p>
       </div>
       <div class="step">
         <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-        <h3>2. Message us</h3>
-        <p>Tap "Ask on WhatsApp" on any product — your message opens pre-filled with the item name.</p>
+        <h3 data-i18n="step2Title">2. Message us</h3>
+        <p data-i18n="step2Desc">Tap "Ask on WhatsApp" on any product — your message opens pre-filled with the item name.</p>
       </div>
       <div class="step">
         <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h3>3. Confirm details</h3>
-        <p>We'll confirm stock, price, and delivery or pickup directly in the chat.</p>
+        <h3 data-i18n="step3Title">3. Confirm details</h3>
+        <p data-i18n="step3Desc">We'll confirm stock, price, and delivery or pickup directly in the chat.</p>
       </div>
     </div>
   </div>
@@ -884,12 +904,12 @@
   <div class="wrap">
     <div class="cta-band">
       <div>
-        <h2>Have a question before you message us?</h2>
-        <p>We're happy to help you figure out what fits your home, even if you're not ready to order yet.</p>
+        <h2 data-i18n="ctaTitle">Have a question before you message us?</h2>
+        <p data-i18n="ctaDesc">We're happy to help you figure out what fits your home, even if you're not ready to order yet.</p>
       </div>
       <a class="btn-primary" id="ctaWa" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Message us on WhatsApp
+        <span data-i18n="ctaBtn">Message us on WhatsApp</span>
       </a>
     </div>
   </div>
@@ -903,7 +923,7 @@
       </span>
       <span class="brand-name">SNIPER TECHNOLOGY</span>
     </div>
-    <div class="fine">No online payment — every order is confirmed over WhatsApp.</div>
+    <div class="fine" data-i18n="footerFine">No online payment — every order is confirmed over WhatsApp.</div>
   </div>
 </footer>
 
@@ -933,12 +953,12 @@
   </div>
   <button class="add-to-cart-pill" id="modalAddToCart">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
-    Add to basket
+    <span data-i18n="modalAddBtn">Add to basket</span>
   </button>
 </div>
 <a class="btn-primary" id="modalWa" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Ask on WhatsApp
+        <span data-i18n="modalAskBtn">Ask on WhatsApp</span>
       </a>
     </div>
   </div>
@@ -950,16 +970,16 @@
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div class="modal-body">
-      <h3>Your basket</h3>
+      <h3 data-i18n="cartTitle">Your basket</h3>
       <div class="cart-list" id="cartList"></div>
       <div class="cart-total" id="cartTotal" style="display:none;">
-        <span>Estimated total</span>
+        <span data-i18n="cartTotal">Estimated total</span>
         <span id="cartTotalValue"></span>
       </div>
-      <div class="cart-total-note" id="cartTotalNote" style="display:none;">Final price confirmed by us on WhatsApp.</div>
+      <div class="cart-total-note" id="cartTotalNote" style="display:none;" data-i18n="cartTotalNote">Final price confirmed by us on WhatsApp.</div>
       <a class="btn-primary" id="cartCheckoutWa" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#20140A" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Order this basket on WhatsApp
+        <span data-i18n="cartCheckout">Order this basket on WhatsApp</span>
       </a>
     </div>
   </div>
@@ -993,26 +1013,124 @@ const BACKGROUND_OVERLAY_OPACITY = 0.45;
 const PRODUCTS = [
   // "images" is a list — add as many photo URLs as you want, e.g. images: ["url1.jpg", "url2.jpg", "url3.jpg"]
   // "fullDesc" is optional — a longer description shown when someone clicks "View details". If left out, "desc" is reused.
-  { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 750", soldOut: false, desc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
+  // "name_ar", "desc_ar", "fullDesc_ar" are optional — Arabic versions shown when the site is switched to Arabic.
+  //   If you don't add them for a product, it just falls back to showing the English text instead.
+  //   Example: name_ar: "مفتاح ذكي بثلاث قنوات", desc_ar: "وصف المنتج هنا بالعربية",
+  { name: "smart switch touch 3 gang", cat: "SMART SWITCHES", price: "EGP 750", soldOut: false,desc_ar: "مفتاح ذكي بتصميم زجاجي أنيق يعمل باللمس، وبيجمع بين الشكل العصري وسهولة التحكم في الإضاءة.يمكن التحكم في الإضاءة من خلال الموبايل باستخدام تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa، ومعرفة حالة الإضاءة والتحكم فيها من أي مكان، حتى وأنت خارج البيت.", desc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
     fullDesc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
      icon: "bulb", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-06.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-01.png"] },
-  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 650",soldOut: false, desc: "he Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
-    fullDesc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
+  { name: "smart switch touch 2 gang", cat: "SMART SWITCHES", price: "EGP 650",soldOut: false,desc_ar: "مفتاح ذكي بتصميم زجاجي أنيق يعمل باللمس، وبيجمع بين الشكل العصري وسهولة التحكم في الإضاءة.يمكن التحكم في الإضاءة من خلال الموبايل باستخدام تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa، ومعرفة حالة الإضاءة والتحكم فيها من أي مكان، حتى وأنت خارج البيت." , desc: "he Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",fullDesc: "The Smart Switch combines a modern touch-glass design with smart control for your lighting. It supports Wi-Fi and Bluetooth connectivity and works with the Tuya and Smart Life applications, allowing you to monitor and control your lights remotely from anywhere.",
      icon: "bulb", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-06.png","https://raw.githubusercontent.com/mostafat34/My-Images/cfb022868ec2ca49d60111e8291f490027eb94fb/smart%20switch-01.png"] },
-  { name: "IR Remote", cat: "Others", price: "EGP 750", soldOut: false, desc: "The Smart IR Remote allows you to control your IR-enabled devices directly from your smartphone. It supports common devices such as TVs, air conditioners, and remote-controlled fans. Compatible with Tuya and Smart Life applications, it provides convenient remote control from anywhere through a single smart platform."
+  { name: "IR Remote", cat: "Others", price: "EGP 750", soldOut: false,desc_ar:"بدل ما تستخدم ريموت منفصل لكل جهاز، خلي موبايلك هو الريموت ؛الـ Smart IR Remote يتيحلك التحكم في الأجهزة اللي بتعمل بالريموت العادي مثل التكييف، التليفزيون والمراوح، من خلال تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa؛ وتقدر تتحكم في أجهزتك من أي مكان من خلال الموبايل، بكل سهولة ومن تطبيق واحد.", desc: "The Smart IR Remote allows you to control your IR-enabled devices directly from your smartphone. It supports common devices such as TVs, air conditioners, and remote-controlled fans. Compatible with Tuya and Smart Life applications, it provides convenient remote control from anywhere through a single smart platform."
 , icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-02.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-04.png","https://raw.githubusercontent.com/mostafat34/My-Images/88be3e6600f6dfe3a4adc2deee9b6c875e649459/IR-03.png"] },
-  { name: "Smart Lock", cat: "SMART LOCKS", price: "EGP 7500", soldOut: false, desc: "The Smart Lock provides secure and convenient access with multiple unlocking options, including fingerprint, palm recognition, password, card, key, mobile application, and temporary passwords. The built-in camera allows you to view and communicate with visitors remotely through two-way audio, providing enhanced security and control wherever you are.", icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock.jpeg","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-07.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-02.png"] },
-  { name: "smart Shutter switch", cat: "SMART SWITCHES", price: "EGP 1000",soldOut: false, desc: "The Smart Shutter Switch provides convenient smart control of motorized shutters and curtains. It allows users to open and close them remotely through the Tuya and Smart Life applications, set automatic schedules, and control them manually or through a smartphone from anywhere.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.25%20PM.jpeg"] },
-  { name: "Smart Valve", cat: "safety", price: "EGP 900",soldOut: true, desc: "The Smart Valve provides smart control of gas and water supply lines. It allows users to remotely open or close the valve through the Tuya and Smart Life applications. It can also be connected to a compatible gas leakage sensor for automatic gas shut-off when a leak is detected, according to the configured settings.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-04.png"] },
-  { name: "GAS Leakage sensor", cat: "safety", price: "EGP 750",soldOut: true, desc: "The Smart Gas Leakage Sensor provides continuous monitoring of gas concentration with a built-in display and smart application access. When a gas leak is detected, it provides a loud audible alarm and sends an immediate notification to your smartphone, even when you are away from home. It can also be integrated with a compatible Smart Valve for automatic gas shut-off.", icon: "thermostat", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-011.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-014.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-09.png"] },
-  { name: "Smart Elec. water heater", cat: "SMART SWITCHES", price: "EGP 1100",soldOut: false, desc: "The Smart Water Heater Switch provides convenient remote control of your electric water heater. Using the Tuya and Smart Life applications, users can turn the heater on or off remotely, monitor its operating status, and set schedules for automatic operation.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.28%20PM.jpeg"] },
-  { name: "Mini Smart Switch 3 gang", cat: "SMART SWITCHES", price: "EGP 700", soldOut: false, desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
-  { name: "Mini smart switch 2 gang", cat: "SMART SWITCHES", price: "EGP 550", soldOut: false, desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
+  { name: "Smart Lock", cat: "SMART LOCKS", price: "EGP 7500", soldOut: false,desc_ar:"القفل الذكي بيوفرلك طرق متعددة لفتح الباب، سواء بالبصمة، راحة اليد، كلمة المرور، الكارت، المفتاح أو من خلال الموبايل. كما يتيح إنشاء كلمة مرور مؤقتة يمكن استخدامها مرة واحدة أو خلال فترة زمنية محددة.وبفضل الكاميرا المدمجة، تقدر تشوف مين واقف قدام الباب وتتواصل معاه مباشرة من خلال الموبايل، حتى لو كنت خارج البيت و كمان تقدر تفتحله الباب من الموبايل.", desc: "The Smart Lock provides secure and convenient access with multiple unlocking options, including fingerprint, palm recognition, password, card, key, mobile application, and temporary passwords. The built-in camera allows you to view and communicate with visitors remotely through two-way audio, providing enhanced security and control wherever you are.", icon: "camera", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock.jpeg","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-07.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/b706686f7e7f04982f5f1c7a12fa0509e33aab02/smart%20lock-02.png"] },
+  { name: "smart Shutter switch", cat: "SMART SWITCHES", price: "EGP 1000",soldOut: false,desc_ar: "تحكم في الشيش والستائر الكهربائية بطريقة أسهل.تقدر تفتح وتقفل من خلال المفتاح أو الموبايل، وتتحكم فيها من أي مكان باستخدام تطبيق Tuya أو Smart Life، بالإضافة إلى إمكانية تحديد مواعيد للفتح والغلق بشكل تلقائي.", desc: "The Smart Shutter Switch provides convenient smart control of motorized shutters and curtains. It allows users to open and close them remotely through the Tuya and Smart Life applications, set automatic schedules, and control them manually or through a smartphone from anywhere.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.25%20PM.jpeg"] },
+  { name: "Smart Valve", cat: "safety", price: "EGP 900",soldOut: true,desc_ar: "تحكم في خطوط الغاز والمياه بطريقة أسهل وأكثر ذكاءً.الـ Smart Valve يتيحلك فتح وغلق المحبس من خلال الموبايل باستخدام تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa، سواء كنت داخل البيت أو خارجه.ويمكن ربطه بحساس تسريب الغاز، بحيث يتم غلق محبس الغاز تلقائيًا عند اكتشاف التسريب، وفقًا لإعدادات النظام.", desc: "The Smart Valve provides smart control of gas and water supply lines. It allows users to remotely open or close the valve through the Tuya and Smart Life applications. It can also be connected to a compatible gas leakage sensor for automatic gas shut-off when a leak is detected, according to the configured settings.", icon: "lock", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-09.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/f958f26d0bcaf2c56ab27704fa44e1535feba65c/valve-04.png"] },
+  { name: "GAS Leakage sensor", cat: "safety", price: "EGP 750",soldOut: true,desc_ar: "حساس ذكي لاكتشاف تسريب الغاز ومتابعة تركيزه داخل المكان.عند اكتشاف تسريب، يصدر الجهاز إنذارًا صوتيًا عاليًا، بالإضافة إلى إرسال إشعار فوري على الموبايل من خلال التطبيق، حتى لو كنت خارج البيت.كما يمكنك متابعة تركيز الغاز من شاشة الجهاز أو من خلال التطبيق، مع إمكانية ربطه بالـ Smart Valve لغلق محبس الغاز تلقائيًا عند اكتشاف التسريب.", desc: "The Smart Gas Leakage Sensor provides continuous monitoring of gas concentration with a built-in display and smart application access. When a gas leak is detected, it provides a loud audible alarm and sends an immediate notification to your smartphone, even when you are away from home. It can also be integrated with a compatible Smart Valve for automatic gas shut-off.", icon: "thermostat", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-01.png","https://raw.githubusercontent.com/mostafat34/My-Images/main/gas%20leakage-011.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-012.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-014.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-03.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-08.png","https://raw.githubusercontent.com/mostafat34/My-Images/1ad2b01487951a080e926f3bc7bed5a8e561b8c6/gas%20leakage-09.png"] },
+  { name: "Smart Elec. water heater", cat: "SMART SWITCHES", price: "EGP 1100",soldOut: false,desc_ar: "تحكم في السخان الكهربائي بسهولة من خلال الموبايل.تقدر تشغل أو تقفل السخان من أي مكان باستخدام تطبيق Tuya أو Smart Life، وتعرف حالته في أي وقت، بالإضافة إلى إمكانية تحديد مواعيد التشغيل والإيقاف تلقائيًا.", desc: "The Smart Water Heater Switch provides convenient remote control of your electric water heater. Using the Tuya and Smart Life applications, users can turn the heater on or off remotely, monitor its operating status, and set schedules for automatic operation.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.28%20PM.jpeg"] },
+  { name: "Mini Smart Switch 3 gang", cat: "SMART SWITCHES", price: "EGP 700", soldOut: false,desc_ar: "حوّل مفتاحك التقليدي لمفتاح ذكي بدون الحاجة لتغيير شكله أو استبداله.يتم تركيبه خلف المفتاح الموجود ، ويوفرلك إمكانية التحكم في الإضاءة من خلال تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa، مع إمكانية معرفة حالة الإضاءة والتحكم فيها من أي مكان.متوفر بإصدار **2 خط و3 خط** ليناسب احتياجات مختلفة.", desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
+  { name: "Mini smart switch 2 gang", cat: "SMART SWITCHES", price: "EGP 550", soldOut: false,desc_ar: "حوّل مفتاحك التقليدي لمفتاح ذكي بدون الحاجة لتغيير شكله أو استبداله.يتم تركيبه خلف المفتاح الموجود ، ويوفرلك إمكانية التحكم في الإضاءة من خلال تطبيق Tuya أو Smart Life او من خلال الاوامر الصوتيه عن طريق Alexa، مع إمكانية معرفة حالة الإضاءة والتحكم فيها من أي مكان.متوفر بإصدار **2 خط و3 خط** ليناسب احتياجات مختلفة.", desc: "The Mini Smart Switch transforms your existing traditional wall switch into a smart switch without changing its external appearance. It supports Wi-Fi and Bluetooth connectivity and can be controlled through the Tuya and Smart Life applications. Available in 2-channel and 3-channel versions for different applications.", icon: "plug", images: ["https://raw.githubusercontent.com/mostafat34/My-Images/90f028b1787974e1958d1cd327f8874781f31921/WhatsApp%20Image%202026-09-03%20at%2011.44.39%20PM.jpeg"] },
 ];
+
+// 3. Arabic translations for your custom category names (optional).
+//    Add an entry for any category you want translated when Arabic is active.
+const CATEGORY_LABELS_AR = {
+  "SMART SWITCHES": "مفاتيح ذكية",
+  "SMART LOCKS": "أقفال ذكية",
+  "Others": "أخرى",
+  "safety": "السلامة",
+};
 
 /* ============================================================
    Rendering logic — no need to edit below this line
    ============================================================ */
+
+const LANG = {
+  en: {
+    toggleLabel: "العربية",
+    navProducts: "Products", navHow: "How it works", navContact: "Contact", navMessageUs: "Message us",
+    heroEyebrow: "Devices for a calmer, more responsive home",
+    heroTitle: "Smart home devices, customize your own home",
+    heroDesc: "Browse the lineup, pick what fits your space, and message us directly on WhatsApp to check stock, ask about setup, or place an order. No accounts, no carts, just a conversation.",
+    heroChatBtn: "Chat with us on WhatsApp",
+    heroSeeAll: "See all products",
+    statDevices: "devices in stock", statCategories: "categories", statReply: "typical reply time",
+    productsTitle: "The lineup",
+    productsDesc: "Every device here connects to your home Wi-Fi and works with a single companion app. Tap \"Ask on WhatsApp\" for pricing, bundles, or installation questions.",
+    filterAll: "All", viewDetails: "View details", addBtn: "Add", added: "Added",
+    soldOutBadge: "Sold out", soldOutText: "Currently sold out",
+    howTitle: "How ordering works", howDesc: "No checkout, no account creation. Just three steps.",
+    step1Title: "1. Browse the lineup", step1Desc: "Look through devices by category and note down what fits your space.",
+    step2Title: "2. Message us", step2Desc: "Tap \"Ask on WhatsApp\" on any product — your message opens pre-filled with the item name.",
+    step3Title: "3. Confirm details", step3Desc: "We'll confirm stock, price, and delivery or pickup directly in the chat.",
+    ctaTitle: "Have a question before you message us?",
+    ctaDesc: "We're happy to help you figure out what fits your home, even if you're not ready to order yet.",
+    ctaBtn: "Message us on WhatsApp",
+    footerFine: "No online payment — every order is confirmed over WhatsApp.",
+    cartTitle: "Your basket",
+    cartEmpty: "Your basket is empty. Tap the basket icon on any product to add it here.",
+    cartCheckout: "Order this basket on WhatsApp",
+    cartTotal: "Estimated total",
+    cartTotalNote: "Final price confirmed by us on WhatsApp.",
+    modalAskBtn: "Ask on WhatsApp", modalAddBtn: "Add to basket",
+    askAria: "Ask on WhatsApp", cartRemoveAria: "Remove",
+    waAskGeneric: "Hi! I have a question about your smart home products.",
+    waAskTemplate: (name) => `Hi! I'm interested in the ${name}. Is it in stock?`,
+    waCartIntro: "Hi! I'd like to order the following:",
+    waCartClosing: "Please confirm availability and final price.",
+    waCartTotalLabel: "Estimated total",
+  },
+  ar: {
+    toggleLabel: "English",
+    navProducts: "المنتجات", navHow: "طريقة الطلب", navContact: "تواصل معنا", navMessageUs: "راسلنا",
+    heroEyebrow: "أجهزة لمنزل أكثر هدوءًا وتفاعلًا",
+    heroTitle: "أجهزة منزلية ذكية، صمم منزلك كما تحب",
+    heroDesc: "تصفح المنتجات، اختر ما يناسب مساحتك، وراسلنا مباشرة على واتساب للاستفسار عن التوفر أو التركيب أو لطلب المنتج. بدون حسابات، بدون سلة شراء، مجرد محادثة بسيطة.",
+    heroChatBtn: "راسلنا على واتساب",
+    heroSeeAll: "عرض كل المنتجات",
+    statDevices: "عدد المنتجات", statCategories: "تصنيفات", statReply: "متوسط وقت الرد",
+    productsTitle: "المنتجات",
+    productsDesc: "كل جهاز هنا يتصل بشبكة الواي فاي الخاصة بمنزلك ويعمل من خلال تطبيق واحد. اضغط \"اسأل على واتساب\" للاستفسار عن السعر أو التركيب.",
+    filterAll: "الكل", viewDetails: "عرض التفاصيل", addBtn: "إضافة", added: "تمت الإضافة",
+    soldOutBadge: "نفذت الكمية", soldOutText: "نفذت الكمية حاليًا",
+    howTitle: "طريقة الطلب", howDesc: "بدون نظام دفع، وبدون إنشاء حساب. فقط ثلاث خطوات.",
+    step1Title: "١. تصفح المنتجات", step1Desc: "تصفح الأجهزة حسب التصنيف ودوّن ما يناسب مساحتك.",
+    step2Title: "٢. راسلنا", step2Desc: "اضغط \"اسأل على واتساب\" على أي منتج — وستفتح رسالة جاهزة تتضمن اسم المنتج.",
+    step3Title: "٣. تأكيد التفاصيل", step3Desc: "سنؤكد لك التوفر والسعر وطريقة التوصيل أو الاستلام مباشرة عبر المحادثة.",
+    ctaTitle: "هل لديك سؤال قبل أن تراسلنا؟",
+    ctaDesc: "يسعدنا مساعدتك في اختيار ما يناسب منزلك، حتى لو لم تكن مستعدًا للطلب بعد.",
+    ctaBtn: "راسلنا على واتساب",
+    footerFine: "بدون دفع إلكتروني — يتم تأكيد كل طلب عبر واتساب.",
+    cartTitle: "سلة مشترياتك",
+    cartEmpty: "سلتك فارغة. اضغط على أيقونة السلة في أي منتج لإضافته هنا.",
+    cartCheckout: "إرسال طلب السلة عبر واتساب",
+    cartTotal: "الإجمالي التقديري",
+    cartTotalNote: "السعر النهائي يتم تأكيده من قبلنا عبر واتساب.",
+    modalAskBtn: "اسأل على واتساب", modalAddBtn: "أضف إلى السلة",
+    askAria: "اسأل على واتساب", cartRemoveAria: "إزالة",
+    waAskGeneric: "مرحبًا! لدي سؤال عن منتجاتكم للمنزل الذكي.",
+    waAskTemplate: (name) => `مرحبًا! أنا مهتم بـ ${name}. هل هو متوفر؟`,
+    waCartIntro: "مرحبًا! أرغب في طلب التالي:",
+    waCartClosing: "برجاء تأكيد التوفر والسعر النهائي.",
+    waCartTotalLabel: "الإجمالي التقديري",
+  }
+};
+
+let currentLang = localStorage.getItem("site_lang") || "en";
+
+function t(key){ return LANG[currentLang][key]; }
+
+function applyStaticTranslations(){
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+}
+applyStaticTranslations();
 
 const ICONS = {
   bulb: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg>',
@@ -1023,7 +1141,7 @@ const ICONS = {
 };
 
 function waLink(productName){
-  const base = productName ? `Hi! I'm interested in the ${productName}. Is it in stock?` : "Hi! I have a question about your smart home products.";
+  const base = productName ? t("waAskTemplate")(productName) : t("waAskGeneric");
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(base)}`;
 }
 
@@ -1050,54 +1168,65 @@ document.title = document.title.replace("Nestlink", BUSINESS_NAME);
 
 // build product grid
 const grid = document.getElementById("productGrid");
-PRODUCTS.forEach((p, index)=>{
-  const card = document.createElement("div");
-  card.className = "card" + (p.soldOut ? " is-sold-out" : "");
-card.dataset.cat = p.cat;
-  const firstImage = p.images && p.images.length ? p.images[0] : null;
- const badge = p.soldOut ? `<span class="sold-out-badge">Sold out</span>` : "";
-const media = firstImage
-  ? `<div class="card-photo">${badge}<img src="${firstImage}" alt="${p.name}"></div>`
-  : `<div class="card-icon">${badge}${ICONS[p.icon] || ICONS.plug}</div>`;
-  card.innerHTML = `
-    ${media}
-    <div class="card-cat">${p.cat}</div>
-    <h3>${p.name}</h3>
-    <p class="desc">${p.desc}</p>
-   <button class="details-btn" data-index="${index}">View details</button>
-${p.soldOut ? '<div class="sold-out-text">Currently sold out</div>' : `<div class="qty-row">`}
-      <div class="qty-stepper">
-        <button class="qty-btn" data-action="dec" data-index="${index}">−</button>
-        <span class="qty-display" id="qtyDisplay-${index}">1</span>
-        <button class="qty-btn" data-action="inc" data-index="${index}">+</button>
+function buildProductGrid(){
+  grid.innerHTML = "";
+  PRODUCTS.forEach((p, index)=>{
+    const card = document.createElement("div");
+    card.className = "card" + (p.soldOut ? " is-sold-out" : "");
+    card.dataset.cat = p.cat;
+    const firstImage = p.images && p.images.length ? p.images[0] : null;
+    const badge = p.soldOut ? `<span class="sold-out-badge">${t("soldOutBadge")}</span>` : "";
+    const media = firstImage
+      ? `<div class="card-photo">${badge}<img src="${firstImage}" alt="${p.name}"></div>`
+      : `<div class="card-icon">${badge}${ICONS[p.icon] || ICONS.plug}</div>`;
+    const catLabel = currentLang === "ar" && CATEGORY_LABELS_AR[p.cat] ? CATEGORY_LABELS_AR[p.cat] : p.cat;
+    const displayName = currentLang === "ar" && p.name_ar ? p.name_ar : p.name;
+    const displayDesc = currentLang === "ar" && p.desc_ar ? p.desc_ar : p.desc;
+    card.innerHTML = `
+      ${media}
+      <div class="card-cat">${catLabel}</div>
+      <h3>${displayName}</h3>
+      <p class="desc">${displayDesc}</p>
+      <button class="details-btn" data-index="${index}">${t("viewDetails")}</button>
+      ${p.soldOut ? `<div class="sold-out-text">${t("soldOutText")}</div>` : `<div class="qty-row">`}
+        <div class="qty-stepper">
+          <button class="qty-btn" data-action="dec" data-index="${index}">−</button>
+          <span class="qty-display" id="qtyDisplay-${index}">1</span>
+          <button class="qty-btn" data-action="inc" data-index="${index}">+</button>
+        </div>
+        <button class="add-to-cart-pill add-to-cart-btn" data-index="${index}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+          ${t("addBtn")}
+             </button>
+      ${p.soldOut ? '' : '</div>'}
+      <div class="card-foot">
+        <span class="price">${p.price}</span>
+        <div class="card-actions">
+          <a class="icon-action-btn" href="${waLink(displayName)}" target="_blank" rel="noopener" aria-label="${t("askAria")}" title="${t("askAria")}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
       </div>
-      <button class="add-to-cart-pill add-to-cart-btn" data-index="${index}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
-        Add
-           </button>
-    ${p.soldOut ? '' : '</div>'}
-    <div class="card-foot">
-      <span class="price">${p.price}</span>
-      <div class="card-actions">
-        <a class="icon-action-btn" href="${waLink(p.name)}" target="_blank" rel="noopener" aria-label="Ask on WhatsApp" title="Ask on WhatsApp">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        </a>
-      </div>
-    </div>
-  `;
-  grid.appendChild(card);
-});
+    `;
+    grid.appendChild(card);
+  });
+}
+buildProductGrid();
 
 // build filter buttons from whatever categories exist in PRODUCTS
 const filters = document.getElementById("filters");
 const categories = ["all", ...new Set(PRODUCTS.map(p => p.cat))];
-categories.forEach((cat, i)=>{
-  const btn = document.createElement("button");
-  btn.className = "filter-btn" + (i === 0 ? " active" : "");
-  btn.dataset.cat = cat;
-  btn.textContent = cat === "all" ? "All" : cat;
-  filters.appendChild(btn);
-});
+function buildFilters(){
+  filters.innerHTML = "";
+  categories.forEach((cat, i)=>{
+    const btn = document.createElement("button");
+    btn.className = "filter-btn" + (i === 0 ? " active" : "");
+    btn.dataset.cat = cat;
+    btn.textContent = cat === "all" ? t("filterAll") : (currentLang === "ar" && CATEGORY_LABELS_AR[cat] ? CATEGORY_LABELS_AR[cat] : cat);
+    filters.appendChild(btn);
+  });
+}
+buildFilters();
 
 // keep the hero stats in sync with the actual product list
 document.getElementById("statDevices").textContent = PRODUCTS.length;
@@ -1165,12 +1294,17 @@ function openModal(index){
   updateModalQtyDisplay();
   const images = product.images && product.images.length ? product.images : [];
   const iconSvg = ICONS[product.icon] || ICONS.plug;
+  const modalDisplayName = currentLang === "ar" && product.name_ar ? product.name_ar : product.name;
+  const modalDisplayDesc = currentLang === "ar"
+    ? (product.fullDesc_ar || product.desc_ar || product.fullDesc || product.desc)
+    : (product.fullDesc || product.desc);
+  const modalCatLabel = currentLang === "ar" && CATEGORY_LABELS_AR[product.cat] ? CATEGORY_LABELS_AR[product.cat] : product.cat;
 
-  modalCat.textContent = product.cat;
-  modalName.textContent = product.name;
+  modalCat.textContent = modalCatLabel;
+  modalName.textContent = modalDisplayName;
   modalPrice.textContent = product.price;
-  modalDesc.textContent = product.fullDesc || product.desc;
-  modalWa.href = waLink(product.name);
+  modalDesc.textContent = modalDisplayDesc;
+  modalWa.href = waLink(modalDisplayName);
 
   setMainImage(images[0], iconSvg);
 
@@ -1217,7 +1351,7 @@ document.getElementById("modalAddToCart").addEventListener("click", (e)=>{
   addToCart(currentModalIndex, modalQty);
   const originalHTML = btn.innerHTML;
   btn.classList.add("added");
-  btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Added`;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> ${t("added")}`;
   setTimeout(()=>{
     btn.classList.remove("added");
     btn.innerHTML = originalHTML;
@@ -1278,14 +1412,20 @@ function formatCartTotal(){
     .join("  +  ");
 }
 
+function cartDisplayName(item){
+  const product = PRODUCTS.find(p => p.name === item.key);
+  if(!product) return item.key;
+  return currentLang === "ar" && product.name_ar ? product.name_ar : product.name;
+}
+
 function addToCart(productIndex, qtyOverride){
   const product = PRODUCTS[productIndex];
   const qty = qtyOverride !== undefined ? qtyOverride : (cardQty[productIndex] || 1);
-  const existing = cart.find(item => item.name === product.name);
+  const existing = cart.find(item => item.key === product.name);
   if(existing){
     existing.qty += qty;
   }else{
-    cart.push({ name: product.name, price: product.price, qty });
+    cart.push({ key: product.name, price: product.price, qty });
   }
   saveCart();
   renderCart();
@@ -1295,28 +1435,28 @@ function addToCart(productIndex, qtyOverride){
   if(display) display.textContent = "1";
 }
 
-function changeQty(name, delta){
-  const item = cart.find(i => i.name === name);
+function changeQty(key, delta){
+  const item = cart.find(i => i.key === key);
   if(!item) return;
   item.qty += delta;
   if(item.qty <= 0){
-    cart = cart.filter(i => i.name !== name);
+    cart = cart.filter(i => i.key !== key);
   }
   saveCart();
   renderCart();
 }
 
-function removeFromCart(name){
-  cart = cart.filter(i => i.name !== name);
+function removeFromCart(key){
+  cart = cart.filter(i => i.key !== key);
   saveCart();
   renderCart();
 }
 
 function cartWaLink(){
   if(cart.length === 0) return waLink();
-  const lines = cart.map((item, i) => `${i + 1}. ${item.name} (x${item.qty}) — ${item.price}`);
+  const lines = cart.map((item, i) => `${i + 1}. ${cartDisplayName(item)} (x${item.qty}) — ${item.price}`);
   const total = formatCartTotal();
-  const message = `Hi! I'd like to order the following:\n${lines.join("\n")}\n\nEstimated total: ${total}\n\nPlease confirm availability and final price.`;
+  const message = `${t("waCartIntro")}\n${lines.join("\n")}\n\n${t("waCartTotalLabel")}: ${total}\n\n${t("waCartClosing")}`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
@@ -1328,20 +1468,20 @@ function renderCart(){
 
   const cartList = document.getElementById("cartList");
   if(cart.length === 0){
-    cartList.innerHTML = `<div class="cart-empty">Your basket is empty. Tap the basket icon on any product to add it here.</div>`;
+    cartList.innerHTML = `<div class="cart-empty">${t("cartEmpty")}</div>`;
   }else{
     cartList.innerHTML = cart.map(item => `
       <div class="cart-item">
         <div class="cart-item-info">
-          <div class="name">${item.name}</div>
+          <div class="name">${cartDisplayName(item)}</div>
           <div class="price">${item.price}</div>
         </div>
         <div class="cart-item-qty">
-          <button class="qty-btn" data-action="dec" data-name="${item.name}">−</button>
+          <button class="qty-btn" data-action="dec" data-name="${item.key}">−</button>
           <span>${item.qty}</span>
-          <button class="qty-btn" data-action="inc" data-name="${item.name}">+</button>
+          <button class="qty-btn" data-action="inc" data-name="${item.key}">+</button>
         </div>
-        <button class="cart-remove" data-action="remove" data-name="${item.name}" aria-label="Remove">
+        <button class="cart-remove" data-action="remove" data-name="${item.key}" aria-label="${t("cartRemoveAria")}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
@@ -1369,7 +1509,7 @@ document.getElementById("productGrid").addEventListener("click", (e)=>{
   addToCart(Number(btn.dataset.index));
   const originalHTML = btn.innerHTML;
   btn.classList.add("added");
-  btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Added`;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> ${t("added")}`;
   setTimeout(()=>{
     btn.classList.remove("added");
     btn.innerHTML = originalHTML;
@@ -1424,6 +1564,26 @@ document.getElementById("cartCheckoutWa").addEventListener("click", ()=>{
 });
 
 renderCart();
+
+// ---------- Language toggle ----------
+document.getElementById("langToggle").addEventListener("click", ()=>{
+  currentLang = currentLang === "en" ? "ar" : "en";
+  localStorage.setItem("site_lang", currentLang);
+
+  applyStaticTranslations();
+  buildProductGrid();
+  buildFilters();
+  renderCart();
+
+  // refresh the static WhatsApp buttons with the newly translated message
+  ["headerWa","heroWa","ctaWa","fabWa"].forEach(id=>{
+    document.getElementById(id).href = waLink();
+  });
+
+  // keep the active filter selected after rebuilding the buttons
+  const firstFilterBtn = document.querySelector(".filter-btn");
+  if(firstFilterBtn) firstFilterBtn.classList.add("active");
+});
 </script>
 
 </body>
